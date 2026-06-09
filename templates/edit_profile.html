@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Profile • PixelMatch</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff4fa3,#ff7ac3,#b84cff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow-x:hidden;
+}
+
+/* Background Effects */
+
+.circle{
+    position:fixed;
+    border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    z-index:-1;
+}
+
+.circle1{
+    width:250px;
+    height:250px;
+    top:-80px;
+    left:-80px;
+}
+
+.circle2{
+    width:180px;
+    height:180px;
+    bottom:-60px;
+    right:-60px;
+}
+
+.circle3{
+    width:120px;
+    height:120px;
+    top:20%;
+    right:10%;
+}
+
+/* Glassmorphism Container */
+
+.container{
+    width:100%;
+    max-width:850px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 25px 45px rgba(0,0,0,0.15);
+}
+
+/* Header */
+
+.header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.header h1{
+    color:white;
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+.header p{
+    color:white;
+    opacity:0.9;
+}
+
+/* Profile Preview */
+
+.profile-preview{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.profile-preview img{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.default-avatar{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    font-size:4rem;
+    border:5px solid white;
+}
+
+/* Stats */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat-card{
+    background:rgba(255,255,255,0.12);
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    color:white;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-icon{
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+/* Form */
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    color:white;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    outline:none;
+    font-size:1rem;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:rgba(255,255,255,0.8);
+}
+
+textarea{
+    resize:none;
+    height:140px;
+}
+
+/* File Upload */
+
+.file-upload{
+    padding:12px;
+}
+
+/* Save Button */
+
+.save-btn{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#ff4fa3;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:10px;
+}
+
+.save-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 25px rgba(0,0,0,0.15);
+}
+
+/* CTA Box */
+
+.cta{
+    margin-top:25px;
+    background:rgba(255,255,255,0.12);
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    color:white;
+}
+
+.cta h3{
+    margin-bottom:10px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.container{
+    padding:25px;
+}
+
+.header h1{
+    font-size:2rem;
+}
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+.profile-preview img,
+.default-avatar{
+    width:120px;
+    height:120px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>✨ Edit Profile</h1>
+        <p>Keep your profile updated and attract more matches.</p>
+    </div>
+
+    <div class="profile-preview">
+
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile">
+        {% else %}
+            <div class="default-avatar">👤</div>
+        {% endif %}
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-icon">❤️</div>
+            <div>More Likes</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">💕</div>
+            <div>More Matches</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📸</div>
+            <div>Better Profile</div>
+        </div>
+
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>🎂 Age</label>
+            <input
+                type="number"
+                name="age"
+                value="{{ profile.age }}">
+        </div>
+
+        <div class="form-group">
+            <label>📍 Location</label>
+            <input
+                type="text"
+                name="location"
+                value="{{ profile.location }}">
+        </div>
+
+        <div class="form-group">
+            <label>💖 About Me</label>
+            <textarea
+                name="bio">{{ profile.bio }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>📸 Profile Photo</label>
+            <input
+                type="file"
+                name="profile_image"
+                class="file-upload">
+        </div>
+
+        <button type="submit" class="save-btn">
+            Save Changes ❤️
+        </button>
+
+    </form>
+
+    <div class="cta">
+        <h3>🚀 Profile Tip</h3>
+        <p>
+            Profiles with updated photos and detailed bios receive
+            significantly more likes and matches.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

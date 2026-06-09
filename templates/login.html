@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PixelMatch Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff4fa3,#ff7ac3,#b84cff);
+    overflow:hidden;
+    position:relative;
+}
+
+/* Floating circles */
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(5px);
+}
+
+.circle1{
+    width:250px;
+    height:250px;
+    top:-80px;
+    left:-80px;
+}
+
+.circle2{
+    width:180px;
+    height:180px;
+    bottom:-50px;
+    right:-50px;
+}
+
+.circle3{
+    width:120px;
+    height:120px;
+    top:20%;
+    right:10%;
+}
+
+/* Glass Login Card */
+
+.login-container{
+    width:100%;
+    max-width:420px;
+    margin:20px;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 25px 45px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.logo{
+    font-size:2.5rem;
+    font-weight:700;
+    color:white;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:white;
+    opacity:0.9;
+    margin-bottom:35px;
+    line-height:1.6;
+}
+
+/* Form */
+
+.input-group{
+    margin-bottom:20px;
+    text-align:left;
+}
+
+.input-group label{
+    display:block;
+    color:white;
+    margin-bottom:8px;
+    font-size:0.9rem;
+    font-weight:500;
+}
+
+.input-group input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:rgba(255,255,255,0.25);
+    color:white;
+    font-size:1rem;
+    outline:none;
+}
+
+.input-group input::placeholder{
+    color:rgba(255,255,255,0.8);
+}
+
+/* Login Button */
+
+.login-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#ff4fa3;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+}
+
+.login-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Divider */
+
+.divider{
+    margin:25px 0;
+    color:white;
+    opacity:0.8;
+    position:relative;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:35%;
+    height:1px;
+    background:rgba(255,255,255,0.4);
+}
+
+.divider::before{
+    left:0;
+}
+
+.divider::after{
+    right:0;
+}
+
+/* CTA */
+
+.register-link{
+    color:white;
+    margin-top:20px;
+    font-size:0.95rem;
+}
+
+.register-link a{
+    color:white;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.register-link a:hover{
+    text-decoration:underline;
+}
+
+/* Feature Highlights */
+
+.features{
+    margin-top:30px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.feature{
+    flex:1;
+    background:rgba(255,255,255,0.15);
+    padding:12px;
+    border-radius:15px;
+    color:white;
+    font-size:0.8rem;
+    transition:0.3s;
+}
+
+.feature:hover{
+    transform:translateY(-4px);
+}
+
+/* Mobile */
+
+@media(max-width:500px){
+
+.login-container{
+    padding:30px 25px;
+}
+
+.logo{
+    font-size:2rem;
+}
+
+.features{
+    flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+
+<div class="login-container">
+
+    <h1 class="logo">💖 PixelMatch</h1>
+
+    <p class="subtitle">
+        Find meaningful connections and start your next love story.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label>Username</label>
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required>
+        </div>
+
+        <button type="submit" class="login-btn">
+            Login ❤️
+        </button>
+
+    </form>
+
+    <div class="divider">
+        OR
+    </div>
+
+    <div class="register-link">
+        Don't have an account?
+        <a href="{% url 'register' %}">
+            Sign Up
+        </a>
+    </div>
+
+    <div class="features">
+
+        <div class="feature">
+            ❤️ Smart Match
+        </div>
+
+        <div class="feature">
+            💬 Live Chat
+        </div>
+
+        <div class="feature">
+            ✨ Real Connections
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PixelMatch Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff4fa3,#ff7ac3,#b84cff);
+    padding:40px 20px;
+}
+
+/* Main Profile Card */
+
+.profile-card{
+    max-width:900px;
+    margin:auto;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 25px 45px rgba(0,0,0,0.15);
+}
+
+/* Cover Section */
+
+.cover{
+    height:220px;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.3),
+        rgba(255,255,255,.1)
+    );
+}
+
+/* Profile Header */
+
+.profile-header{
+    text-align:center;
+    margin-top:-90px;
+    padding:0 30px;
+}
+
+.profile-image img{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid white;
+    background:white;
+}
+
+.username{
+    color:white;
+    font-size:2rem;
+    margin-top:20px;
+    font-weight:700;
+}
+
+.location{
+    color:white;
+    opacity:0.9;
+    margin-top:8px;
+}
+
+/* Stats */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    padding:30px;
+}
+
+.stat-card{
+    background:rgba(255,255,255,0.15);
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    color:white;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-number{
+    font-size:2rem;
+    font-weight:bold;
+}
+
+.stat-label{
+    margin-top:8px;
+    opacity:0.9;
+}
+
+/* Info Section */
+
+.info{
+    padding:0 30px 30px;
+    color:white;
+}
+
+.info-box{
+    background:rgba(255,255,255,0.12);
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+.info-box h3{
+    margin-bottom:10px;
+}
+
+.info-box p{
+    line-height:1.8;
+}
+
+/* Gallery */
+
+.gallery{
+    padding:0 30px 30px;
+}
+
+.gallery h2{
+    color:white;
+    margin-bottom:20px;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:15px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:20px;
+    transition:.3s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.03);
+}
+
+/* CTA Button */
+
+.edit-btn{
+    display:block;
+    width:max-content;
+    margin:30px auto 40px;
+    text-decoration:none;
+    background:white;
+    color:#ff4fa3;
+    padding:15px 35px;
+    border-radius:50px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.edit-btn:hover{
+    transform:translateY(-4px);
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+.username{
+    font-size:1.6rem;
+}
+
+.profile-image img{
+    width:140px;
+    height:140px;
+}
+
+.gallery-grid{
+    grid-template-columns:1fr 1fr;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="profile-card">
+
+    <div class="cover"></div>
+
+    <div class="profile-header">
+
+        <div class="profile-image">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="Profile">
+            {% endif %}
+        </div>
+
+        <h1 class="username">
+            {{ user.username }}
+        </h1>
+
+        <p class="location">
+            📍 {{ profile.location }}
+        </p>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-number">❤️</div>
+            <div class="stat-label">Likes</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">💕</div>
+            <div class="stat-label">Matches</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">📸</div>
+            <div class="stat-label">Photos</div>
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <div class="info-box">
+            <h3>🎂 Age</h3>
+            <p>{{ profile.age }}</p>
+        </div>
+
+        <div class="info-box">
+            <h3>👤 Gender</h3>
+            <p>{{ profile.gender }}</p>
+        </div>
+
+        <div class="info-box">
+            <h3>💖 About Me</h3>
+            <p>{{ profile.bio }}</p>
+        </div>
+
+    </div>
+
+    <div class="gallery">
+
+        <h2>📸 Gallery</h2>
+
+        <div class="gallery-grid">
+
+            {% for photo in profile.photos.all %}
+
+                <img src="{{ photo.image.url }}">
+
+            {% empty %}
+
+                <p style="color:white;">
+                    No photos uploaded yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <a href="{% url 'edit_profile' %}" class="edit-btn">
+        ✏️ Edit Profile
+    </a>
+
+</div>
+
+</body>
+</html>

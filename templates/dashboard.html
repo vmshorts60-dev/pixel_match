@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PixelMatch Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff4fa3,#ff7ac3,#c44cff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.dashboard{
+    width:100%;
+    max-width:1100px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+}
+
+.logo{
+    font-size:2.5rem;
+    font-weight:700;
+    color:white;
+}
+
+.welcome{
+    color:white;
+    font-size:1.1rem;
+    margin-top:10px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.card h3{
+    color:#555;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:2rem;
+    font-weight:bold;
+    color:#ff4fa3;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.btn{
+    text-decoration:none;
+    background:white;
+    color:#ff4fa3;
+    padding:18px;
+    border-radius:15px;
+    text-align:center;
+    font-weight:600;
+    transition:0.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn:hover{
+    background:#ff4fa3;
+    color:white;
+    transform:translateY(-5px);
+}
+
+.quick-match{
+    margin-top:40px;
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.quick-match h2{
+    color:#ff4fa3;
+    margin-bottom:10px;
+}
+
+.quick-match p{
+    color:#666;
+    margin-bottom:20px;
+}
+
+.match-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:linear-gradient(45deg,#ff4fa3,#c44cff);
+    color:white;
+    padding:15px 30px;
+    border-radius:50px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.match-btn:hover{
+    transform:scale(1.05);
+}
+
+@media(max-width:768px){
+
+    .dashboard{
+        padding:25px;
+    }
+
+    .logo{
+        font-size:2rem;
+    }
+
+    .card p{
+        font-size:1.6rem;
+    }
+.notification-badge{
+    margin-top:12px;
+    display:inline-block;
+    background:#ff3b5c;
+    color:white;
+    padding:6px 12px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:600;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+}
+
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <div class="header">
+        <div>
+            <div class="logo">💖 PixelMatch</div>
+            <div class="welcome">
+                Welcome back, <strong>{{ user.username }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            <div class="icon">❤️</div>
+            <h3>Likes</h3>
+            <p>{{ likes_count }}</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">💕</div>
+            <h3>Matches</h3>
+            <p>{{ matches_count }}</p>
+        </div>
+
+       <div class="card">
+    <div class="icon">💬</div>
+    <h3>Messages</h3>
+    <p>{{ messages_count }}</p>
+
+    {% if unread_count > 0 %}
+    <div class="notification-badge">
+        {{ unread_count }} New
+    </div>
+    {% endif %}
+</div>
+
+    </div>
+
+    <div class="actions">
+
+
+        <a href="{% url 'matches' %}" class="btn">
+            🔍 Discover People
+        </a>
+
+        <a href="{% url 'my_matches' %}" class="btn">
+            ❤️ My Matches
+        </a>
+
+        <a href="{% url 'profile' %}" class="btn">
+            👤 My Profile
+        </a>
+
+        <a href="{% url 'upload_photos' %}" class="btn">
+            📸 Upload Photos
+        </a>
+
+        <a href="{% url 'edit_profile' %}" class="btn">
+            ⚙️ Edit Profile
+        </a>
+
+        <a href="{% url 'logout' %}" class="btn">
+            🚪 Logout
+        </a>
+
+    </div>
+
+    <div class="quick-match">
+
+    <h2>🔥 People Are Waiting For You</h2>
+
+    <p>
+        Discover new profiles, make connections,
+        and start meaningful conversations today.
+    </p>
+
+    <a href="{% url 'matches' %}" class="match-btn">
+        Start Swiping ❤️
+    </a>
+
+</div>
+
+    </div>
+
+</div>
+<span class="badge">{{ unread_count }}</span>
+
+</body>
+</html>
